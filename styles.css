@@ -120,6 +120,7 @@ body {
   background-color: hsl(220, 4%, 46%);
   color: #fbfcf8;
   box-shadow: 2px 2px 5px hsl(0, 0%, 20%);
+  cursor: pointer;
 }
 
 .operator {
