@@ -25,44 +25,66 @@
   </head>
   <body>
     <div class="container">
-      <div class="display">0</div>
+      <input
+        type="text"
+        id="display"
+        value="0"
+        class="display"
+        disabled
+      />
       <div class="row">
         <button id="clear" class="round">C</button>
-        <button id="division" class="round operator">
-          <i class="fas fa-divide"></i>
+        <button class="round operator">
+          <i
+            value="÷"
+            class="fas fa-divide operation"
+            aria-hidden="true"
+          ></i>
         </button>
       </div>
       <div class="row">
-        <button id="seven" class="round">7</button>
-        <button id="eight" class="round">8</button>
-        <button id="nine" class="round">9</button>
-        <button id="multiply" class="round operator">
-          <i class="fa fa-times" aria-hidden="true"></i>
+        <button value="7" class="round number">7</button>
+        <button value="8" class="round number">8</button>
+        <button value="9" class="round number">9</button>
+        <button class="round operator">
+          <i
+            value="×"
+            class="fa fa-times operation"
+            aria-hidden="true"
+          ></i>
         </button>
       </div>
       <div class="row">
-        <button id="four" class="round">4</button>
-        <button id="five" class="round">5</button>
-        <button id="six" class="round">6</button>
-        <button id="minus" class="round operator">
-          <i class="fa fa-minus" aria-hidden="true"></i>
+        <button value="4" class="round number">4</button>
+        <button value="5" class="round number">5</button>
+        <button value="6" class="round number">6</button>
+        <button class="round operator">
+          <i
+            value="−"
+            class="fa fa-minus operation"
+            aria-hidden="true"
+          ></i>
         </button>
       </div>
       <div class="row">
-        <button id="one" class="round">1</button>
-        <button id="two" class="round">2</button>
-        <button id="three" class="round">3</button>
-        <button id="plus" class="round operator">
-          <i class="fa fa-plus" aria-hidden="true"></i>
+        <button value="1" class="round number">1</button>
+        <button value="2" class="round number">2</button>
+        <button value="3" class="round number">3</button>
+        <button class="round operator">
+          <i
+            value="+"
+            class="fa fa-plus operation"
+            aria-hidden="true"
+          ></i>
         </button>
       </div>
       <div class="row">
-        <button id="zero" class="round">0</button>
-        <button id="comma" class="round">,</button>
+        <button value="0" class="round number">0</button>
+        <button id="period" value="&period;" class="round">.</button>
         <button id="backspace" class="round">
           <i class="fa-solid fa-delete-left"></i>
         </button>
-        <button id="equals" class="round operator">
+        <button id="equals" class="round">
           <i class="fa-solid fa-equals"></i>
         </button>
       </div>
