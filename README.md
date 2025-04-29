@@ -1,5 +1,6 @@
 # calculator
 The Odin Project - Foundation Course
+
 Here are some use cases (expectations about your project):
 
 1. The calculator must contain functions for all of the basic math operators typically found on calculators:
