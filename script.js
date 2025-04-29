@@ -1,64 +1,99 @@
-const display = document.querySelector('.display');
+const display = document.getElementById('display');
 const clearBtn = document.getElementById('clear');
-const divideBtn = document.getElementById('division');
-const sevenBtn = document.getElementById('seven');
-const eightBtn = document.getElementById('eight');
-const nineBtn = document.getElementById('nine');
-const multiplyBtn = document.getElementById('multiply');
-const fourBtn = document.getElementById('four');
-const fiveBtn = document.getElementById('five');
-const sixBtn = document.getElementById('six');
-const subtractBtn = document.getElementById('minus');
-const oneBtn = document.getElementById('one');
-const twoBtn = document.getElementById('two');
-const threeBtn = document.getElementById('three');
-const additionBtn = document.getElementById('plus');
-const zeroBtn = document.getElementById('zero');
-const commaBtn = document.getElementById('comma');
+const periodBtn = document.getElementById('period');
 const backBtn = document.getElementById('backspace');
 const equalsBtn = document.getElementById('equals');
 
-const addition = (a, b) => a + b;
-const division = (a, b) => a / b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
+const numbers = document.querySelectorAll('.number');
+const operatorList = document.querySelectorAll('.operation');
 
-const firstOperand = undefined;
-const secondOperand = undefined;
-const operator = undefined;
+let firstOperand = '';
+let secondOperand = '';
+let operator = '';
+let result;
+let clearDisplay = false;
 
-const operate = (firstOperand, secondOperand, operator) => {};
+clearBtn.addEventListener('click', () => {
+  firstOperand = '';
+  secondOperand = '';
+  operator = '';
+  display.value = 0;
+});
 
-clearBtn.addEventListener('click', () => (display.textContent = 0));
-divideBtn.addEventListener(
-  'click',
-  () => (display.textContent = '/')
-);
-sevenBtn.addEventListener('click', () => (display.textContent = 7));
-eightBtn.addEventListener('click', () => (display.textContent = 8));
-nineBtn.addEventListener('click', () => (display.textContent = 9));
-multiplyBtn.addEventListener(
-  'click',
-  () => (display.textContent = 'x')
-);
-fourBtn.addEventListener('click', () => (display.textContent = 4));
-fiveBtn.addEventListener('click', () => (display.textContent = 5));
-sixBtn.addEventListener('click', () => (display.textContent = 6));
-subtractBtn.addEventListener(
-  'click',
-  () => (display.textContent = '-')
-);
-oneBtn.addEventListener('click', () => (display.textContent = 1));
-twoBtn.addEventListener('click', () => (display.textContent = 2));
-threeBtn.addEventListener('click', () => (display.textContent = 3));
-additionBtn.addEventListener(
-  'click',
-  () => (display.textContent = '+')
-);
-zeroBtn.addEventListener('click', () => (display.textContent = 0));
-commaBtn.addEventListener('click', () => (display.textContent = ','));
-backBtn.addEventListener('click', () => (display.textContent = ''));
-equalsBtn.addEventListener(
-  'click',
-  () => (display.textContent = '=')
-);
+backBtn.addEventListener('click', () => {
+  let value = display.value;
+  let delValue = (display.value = display.value.slice(0, -1));
+  if (delValue) {
+    return delValue;
+  }
+});
+
+periodBtn.addEventListener('click', () => {
+  firstOperand += '.';
+  display.value = `${secondOperand} ${operator} ${firstOperand}`;
+  if (display.value.includes('.')) {
+    periodBtn.disabled = true;
+  }
+});
+
+numbers.forEach((digit) => {
+  digit.addEventListener('click', (e) => {
+    clearDisplay = true;
+    firstOperand += e.target.value;
+    display.value = `${secondOperand} ${operator} ${firstOperand}`;
+  });
+});
+
+operatorList.forEach((operation) => {
+  operation.addEventListener('click', (e) => {
+    if (firstOperand === '') return;
+    if (secondOperand !== '') {
+      calculate();
+    }
+    operator = e.target.getAttribute('value');
+    secondOperand = firstOperand;
+    firstOperand = '';
+    display.value = `${secondOperand} ${operator}`;
+  });
+});
+
+const calculate = () => {
+  if (firstOperand === '' || secondOperand === '') return;
+  let firstNum = parseFloat(firstOperand);
+  let secondNum = parseFloat(secondOperand);
+
+  switch (operator) {
+    case '+':
+      result = secondNum + firstNum;
+      break;
+    case '−':
+      result = secondNum - firstNum;
+      break;
+    case '×':
+      result = secondNum * firstNum;
+      break;
+    case '÷':
+      if (firstNum === 0) {
+        display.textContent = 'Error';
+        alert();
+        return;
+      } else {
+        result = secondNum / firstNum;
+        break;
+      }
+    default:
+      return;
+  }
+
+  firstOperand = result.toString();
+  operator = '';
+  secondOperand = '';
+  display.value = `${firstOperand}`;
+};
+
+equalsBtn.addEventListener('click', () => {
+  if (secondOperand !== '') {
+    calculate();
+  }
+  firstOperand = '';
+});
