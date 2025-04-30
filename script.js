@@ -21,18 +21,15 @@ clearBtn.addEventListener('click', () => {
 });
 
 backBtn.addEventListener('click', () => {
-  let value = display.value;
-  let delValue = (display.value = display.value.slice(0, -1));
-  if (delValue) {
-    return delValue;
-  }
+  let input = display.value;
+  input = input.slice(0, -1);
+  display.value = input;
 });
 
 periodBtn.addEventListener('click', () => {
-  firstOperand += '.';
-  display.value = `${secondOperand} ${operator} ${firstOperand}`;
-  if (display.value.includes('.')) {
-    periodBtn.disabled = true;
+  if (!firstOperand.includes('.')) {
+    firstOperand += '.';
+    display.value = `${secondOperand} ${operator} ${firstOperand}`;
   }
 });
 
@@ -74,8 +71,8 @@ const calculate = () => {
       break;
     case '÷':
       if (firstNum === 0) {
-        display.textContent = 'Error';
-        alert();
+        display.value = 'Error';
+        alert('You cannot divide by 0');
         return;
       } else {
         result = secondNum / firstNum;
@@ -85,7 +82,7 @@ const calculate = () => {
       return;
   }
 
-  firstOperand = result.toString();
+  firstOperand = Math.round(result * 100000) / 100000;
   operator = '';
   secondOperand = '';
   display.value = `${firstOperand}`;
@@ -96,4 +93,5 @@ equalsBtn.addEventListener('click', () => {
     calculate();
   }
   firstOperand = '';
+  clearDisplay = true;
 });
