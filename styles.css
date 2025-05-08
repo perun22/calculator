@@ -124,7 +124,21 @@ body {
   cursor: pointer;
 }
 
+.number:hover,
+.spare:hover {
+  background-color: hsl(220, 4%, 36%);
+}
+
 .operator {
   color: #fbfcf8;
   background-color: #f19a37;
+}
+
+.operator:hover {
+  background-color: hsl(32, 87%, 48%);
+}
+
+.operator:active {
+  color: #f19a37;
+  background-color: #fbfcf8;
 }
