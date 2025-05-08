@@ -13,6 +13,15 @@ let operator = '';
 let result;
 let clearDisplay = false;
 
+numbers.forEach((digit) => {
+  digit.addEventListener('click', (e) => {
+    if (firstOperand.length < 9) {
+      firstOperand += e.target.value;
+      display.value = firstOperand;
+    }
+  });
+});
+
 clearBtn.addEventListener('click', () => {
   firstOperand = '';
   secondOperand = '';
@@ -21,24 +30,15 @@ clearBtn.addEventListener('click', () => {
 });
 
 backBtn.addEventListener('click', () => {
-  let input = display.value;
-  input = input.slice(0, -1);
-  display.value = input;
+  firstOperand = firstOperand.slice(0, -1);
+  display.value = display.value.slice(0, -1);
 });
 
 periodBtn.addEventListener('click', () => {
   if (!firstOperand.includes('.')) {
     firstOperand += '.';
-    display.value = `${secondOperand} ${operator} ${firstOperand}`;
+    display.value = firstOperand;
   }
-});
-
-numbers.forEach((digit) => {
-  digit.addEventListener('click', (e) => {
-    clearDisplay = true;
-    firstOperand += e.target.value;
-    display.value = `${secondOperand} ${operator} ${firstOperand}`;
-  });
 });
 
 operatorList.forEach((operation) => {
@@ -50,7 +50,6 @@ operatorList.forEach((operation) => {
     operator = e.target.getAttribute('value');
     secondOperand = firstOperand;
     firstOperand = '';
-    display.value = `${secondOperand} ${operator}`;
   });
 });
 
@@ -82,10 +81,11 @@ const calculate = () => {
       return;
   }
 
-  firstOperand = Math.round(result * 100000) / 100000;
+  firstOperand = Math.round(result * 1000) / 1000;
   operator = '';
   secondOperand = '';
-  display.value = `${firstOperand}`;
+  display.value = firstOperand;
+  clearDisplay = true;
 };
 
 equalsBtn.addEventListener('click', () => {
